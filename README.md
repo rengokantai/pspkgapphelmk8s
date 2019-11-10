@@ -52,3 +52,63 @@ values.yaml
 other-file.yaml // helm install -f file
 variables //helm install -- set foo=bar
 ```
+
+## 7. Managing Dependencies
+### 1 Packging a Chart
+```
+helm package chart_name
+```
+And:
+- Compress chart folder in a .tar.gz archive
+- Add a version number to the archive
+
+### 2 Publishing Charts in a Repository
+```
+helm repo index .
+helm package --sign
+helm verify chart.gz
+helm install --verify
+```
+multiple packaging
+```
+helm package 1 2 3
+ls ~/.helm/repository/local
+```
+retrieve repo list
+```
+helm repo list
+```
+start local server
+```
+helm serve
+```
+##### 3:23 remove
+```
+helm repo add myrepo http://
+helm repo remove myrepo
+```
+check
+```
+x-www-browser heep://127.0.0.1/8879
+```
+### 4 Defining Dependencies
+```
+dependencies:
+  - name: backend
+    version: ~1.2.2
+    repository: http://
+  - name: frontend
+    version: ^1.2.0
+    repository: http://127.0.0.1:8879/charts
+```
+
+##### 2:54
+update
+```
+helm dependency update guestbook
+helm dependency list guestbook
+```
+generate lock file
+```
+helm dependency build guestbook
+```
