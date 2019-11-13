@@ -112,3 +112,46 @@ generate lock file
 ```
 helm dependency build guestbook
 ```
+
+### 5 Adding Conditions and Tags
+Note: conditions will override tags
+```
+dependencies:
+  - name: backend
+    version:
+    repository:
+    condition:
+    tags:
+      - api
+```
+values.yaml
+```
+backend:
+  enabled: true
+tags:
+  api: true
+```
+set command
+```
+helm install guestbook --set database.enabled=true
+```
+### 6 Demo: Managing Dependencies
+```
+helm dependency update guestbook
+ls guestbook/charts
+```
+
+
+## 8. Using Existing Helm Charts
+### 1 Using Existing Helm Charts
+```
+helm repo list
+helm search keyword
+helm inspect chart_name
+helm inspect chart chart_name
+helm inspect values chart_name
+helm fetch chart_name
+helm dependency update chart_name
+```
+
+
